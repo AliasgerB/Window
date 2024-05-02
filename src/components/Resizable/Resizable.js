@@ -3,6 +3,7 @@ import { Resizable } from "react-resizable";
 import "./resizable.css";
 
 export const ResizableComponent = ({ onAdd, onUpdate, data }) => {
+  //States
   const [width, setWidth] = useState(200);
   const [height, setHeight] = useState(200);
 

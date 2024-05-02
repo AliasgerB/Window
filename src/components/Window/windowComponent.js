@@ -33,6 +33,7 @@ export const WindowComponent = () => {
     }
   };
 
+  // console.log(data);
   const closeModal = () => {
     setShowModal(false);
     setTextareaValue("");
