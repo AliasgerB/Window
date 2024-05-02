@@ -8,10 +8,11 @@ export const WindowComponent = () => {
   const [textareaValue, setTextareaValue] = useState("");
   const [activeWindowType, setActiveWindowType] = useState("");
   const [data, setData] = useState([]);
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const fetchWindowData = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/");
+      const response = await axios.get(apiUrl);
       setData(response.data);
     } catch (error) {
       console.error("Error fetching window data:", error);
@@ -41,7 +42,7 @@ export const WindowComponent = () => {
   };
 
   const handleAddAndUpdate = async () => {
-    await axios.post("http://localhost:8000/window", {
+    await axios.post(`${apiUrl}/window`, {
       Content: textareaValue,
       Windowtype: activeWindowType,
       Count:
