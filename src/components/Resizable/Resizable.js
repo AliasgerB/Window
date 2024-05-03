@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./resizable.css";
 
 export const ResizableComponent = ({ onAdd, onUpdate, data }) => {
-  const [width, setWidth] = useState(200); // Initial width
+  const [width, setWidth] = useState(400); // Initial width
 
   const handleMouseDown = (e, direction) => {
     e.preventDefault();
@@ -32,7 +32,7 @@ export const ResizableComponent = ({ onAdd, onUpdate, data }) => {
     <div className="resizable" style={{ width: width, height: "auto" }}>
       {/* Window content */}
       <div className="window">
-        <h1>{data?.Windowtype ? data?.Windowtype : "Please add the data"}</h1>
+        <h2>{data?.Windowtype ? data?.Windowtype : "Please add the data"}</h2>
         {data?.Count && <h3>API Count : {data?.Count}</h3>}
         <h4>{data?.Content ? data?.Content : ""}</h4>
         {/* Button to add or update data */}
