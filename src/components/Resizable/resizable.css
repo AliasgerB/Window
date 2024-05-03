@@ -1,26 +1,32 @@
 .resizable {
-    display: inline-block;
-    margin: 10px;
-  }
-  
-  .window {
-    border: 1px solid #ccc;
-    padding: 10px;
-    background-color: #f9f9f9;
-  }
-  
-  .resize-handler {
-    position: relative;
-  }
-  
-  .resize-handler::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 10px;
-    height: 10px;
-    background-color: #007bff;
-    cursor: se-resize;
-  }
-  
+  position: relative;
+  border: 1px solid #ccc;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.window {
+  padding: 10px;
+  overflow: hidden;
+}
+
+.resize-handle {
+  position: absolute;
+  background-color: #ccc;
+}
+
+.resize-handle.right {
+  width: 5px;
+  height: 100%;
+  top: 0;
+  right: -2px;
+  cursor: col-resize;
+}
+
+.resize-handle.bottom {
+  width: 100%;
+  height: 5px;
+  left: 0;
+  bottom: -2px;
+  cursor: row-resize;
+}

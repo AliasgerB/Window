@@ -15,6 +15,7 @@ export const WindowComponent = () => {
   const [textareaValue, setTextareaValue] = useState(""); // Stores the value of the textarea in the modal
   const [activeWindowType, setActiveWindowType] = useState(""); // Stores the type of the active window
   const [data, setData] = useState([]); // Stores window data fetched from the API
+  const [error, setError] = useState("");
   const apiUrl = process.env.REACT_APP_API_URL; // API URL
 
   // Function to fetch window data from the API
@@ -56,15 +57,19 @@ export const WindowComponent = () => {
   // Function to handle adding or updating window content
   const handleAddAndUpdate = async () => {
     // Send a POST request to the API to add or update window content
-    await axios.post(`${apiUrl}/window`, {
-      Content: textareaValue,
-      Windowtype: activeWindowType,
-      Count:
-        data.filter((window) => window.Windowtype === activeWindowType).length +
-        1,
-    });
-    fetchWindowData(); // Fetch updated window data
-    closeModal(); // Close the modal
+    if (textareaValue.length) {
+      await axios.post(`${apiUrl}/window`, {
+        Content: textareaValue,
+        Windowtype: activeWindowType,
+        Count:
+          data.filter((window) => window.Windowtype === activeWindowType)
+            .length + 1,
+      });
+      fetchWindowData(); // Fetch updated window data
+      closeModal(); // Close the modal
+    } else {
+      setError("Please enter content");
+    }
   };
 
   return (
@@ -82,23 +87,23 @@ export const WindowComponent = () => {
               {/* Textarea for entering window content */}
               <textarea
                 value={textareaValue}
-                onChange={(e) => setTextareaValue(e.target.value)}
+                onChange={(e) => {
+                  setTextareaValue(e.target.value);
+                  setError("");
+                }}
                 cols="50"
                 rows="8"
               />
             </div>
             {/* Add or Update button */}
-            {textareaValue.length > 0 && (
-              <>
-                <button onClick={handleAddAndUpdate}>
-                  {data.filter(
-                    (window) => window.Windowtype === activeWindowType
-                  ).length
-                    ? "Update"
-                    : "Add"}
-                </button>
-              </>
-            )}
+
+            <button onClick={handleAddAndUpdate}>
+              {data.filter((window) => window.Windowtype === activeWindowType)
+                .length
+                ? "Update"
+                : "Add"}
+            </button>
+            {error && <p style={{ color: "red" }}>{error}</p>}
           </div>
         </div>
       )}
